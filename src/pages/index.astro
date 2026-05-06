@@ -1,4 +1,5 @@
 ---
+import { withBase } from "../utils";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { homeConfig } from "../config/home.config";
 import { servicesConfig } from "../config/services.config";
@@ -62,11 +63,11 @@ const topTestimonials = testimonialsConfig.items.slice(0, 3);
     />
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       {topServices.map(service => (
-        <ServiceCard {...service} href={`/services#${service.id}`} />
+        <ServiceCard {...service} href={withBase(`/services#${service.id}`)} />
       ))}
     </div>
     <div class="text-center mt-12">
-      <Button label="View All Services" href="/services" variant="secondary" />
+      <Button label="View All Services" href={withBase("/services")} variant="secondary" />
     </div>
   </section>
 
@@ -85,7 +86,7 @@ const topTestimonials = testimonialsConfig.items.slice(0, 3);
       />
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-12">
         {caseStudies.items.map(item => (
-          <a href={item.href} class="group block rounded-xl overflow-hidden border border-gray-800 hover:border-blue-500/50 transition-all bg-[#0A0F1E]">
+          <a href={withBase(item.href)} class="group block rounded-xl overflow-hidden border border-gray-800 hover:border-blue-500/50 transition-all bg-[#0A0F1E]">
             <div class="h-48 bg-gray-800 relative overflow-hidden">
               <div class="absolute inset-0 bg-gray-700 group-hover:scale-105 transition-transform duration-500"></div>
               <div class="absolute top-4 left-4 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full z-10">{item.category}</div>

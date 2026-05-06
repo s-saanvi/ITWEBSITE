@@ -1,4 +1,5 @@
 ---
+import { withBase } from "../utils";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { servicesConfig } from "../config/services.config";
 import HeroSection from "../components/HeroSection.astro";
@@ -20,7 +21,7 @@ const { hero, items, cta } = servicesConfig;
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24">
       {items.map((service) => (
         <div id={service.id} class="scroll-mt-32" data-animate>
-          <ServiceCard {...service} href={`/services#${service.id}`} />
+          <ServiceCard {...service} href={withBase(`/services#${service.id}`)} />
         </div>
       ))}
     </div>
