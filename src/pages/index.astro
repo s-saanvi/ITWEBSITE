@@ -1,0 +1,126 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { homeConfig } from "../config/home.config";
+import { servicesConfig } from "../config/services.config";
+import { testimonialsConfig } from "../config/testimonials.config";
+import HeroSection from "../components/HeroSection.astro";
+import ServiceCard from "../components/ServiceCard.astro";
+import TestimonialCard from "../components/TestimonialCard.astro";
+import StatsCounter from "../components/StatsCounter.astro";
+import CTABanner from "../components/CTABanner.astro";
+import SectionTitle from "../components/SectionTitle.astro";
+import Button from "../components/Button.astro";
+
+const { hero, trustedBy, services, stats, caseStudies, testimonials, ctaBanner } = homeConfig;
+
+// Get top 3 services for homepage
+const topServices = servicesConfig.items.slice(0, 3);
+// Get top 3 testimonials
+const topTestimonials = testimonialsConfig.items.slice(0, 3);
+---
+<BaseLayout title="IT Services & Solutions">
+
+  <!-- Hero Section -->
+  <div class="relative overflow-hidden">
+    <div class="hero-bg-wrapper">
+      <div class="hero-bg"></div>
+    </div>
+    <HeroSection
+      badge={hero.badge}
+      headlineStatic={hero.headlineStatic}
+      headlineTypewriter={hero.headlineTypewriter}
+      subheading={hero.subheading}
+      primaryCTA={hero.primaryCTA}
+      secondaryCTA={hero.secondaryCTA}
+    />
+  </div>
+
+  <!-- Trusted By Marquee -->
+  <section class="py-10 border-y border-gray-800 bg-[#0F1729]/50" data-animate>
+    <div class="container mx-auto px-4 md:px-6">
+      <p class="text-center text-sm font-medium text-gray-500 mb-6 uppercase tracking-wider">{trustedBy.heading}</p>
+      <div class="marquee-container w-full">
+        <div class="marquee-content flex gap-12 items-center">
+          <!-- Double the array for seamless infinite scroll -->
+          {[...trustedBy.logos, ...trustedBy.logos].map(logo => (
+            <div class="text-gray-400 font-display font-bold text-xl whitespace-nowrap opacity-50 hover:opacity-100 transition-opacity">
+              {/* Fallback to text if logo image is missing */}
+              {logo.name}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="py-24 container mx-auto px-4 md:px-6" data-animate>
+    <SectionTitle
+      sectionLabel={services.sectionLabel}
+      heading={services.heading}
+      subheading={services.subheading}
+    />
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {topServices.map(service => (
+        <ServiceCard {...service} href={`/services#${service.id}`} />
+      ))}
+    </div>
+    <div class="text-center mt-12">
+      <Button label="View All Services" href="/services" variant="secondary" />
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="container mx-auto px-4 md:px-6 mb-24">
+    <StatsCounter stats={stats} />
+  </section>
+
+  <!-- Case Studies -->
+  <section class="py-24 bg-[#0F1729] border-y border-gray-800" data-animate>
+    <div class="container mx-auto px-4 md:px-6">
+      <SectionTitle
+        sectionLabel={caseStudies.sectionLabel}
+        heading={caseStudies.heading}
+        subheading={caseStudies.subheading}
+      />
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-12">
+        {caseStudies.items.map(item => (
+          <a href={item.href} class="group block rounded-xl overflow-hidden border border-gray-800 hover:border-blue-500/50 transition-all bg-[#0A0F1E]">
+            <div class="h-48 bg-gray-800 relative overflow-hidden">
+              <div class="absolute inset-0 bg-gray-700 group-hover:scale-105 transition-transform duration-500"></div>
+              <div class="absolute top-4 left-4 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full z-10">{item.category}</div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">{item.title}</h3>
+              <p class="text-gray-400 text-sm mb-4 line-clamp-2">{item.description}</p>
+              <div class="flex items-center justify-between border-t border-gray-800 pt-4 mt-4">
+                <span class="text-cyan-400 font-medium text-sm">Result: {item.result}</span>
+                <svg class="w-5 h-5 text-gray-500 group-hover:text-blue-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="py-24 container mx-auto px-4 md:px-6" data-animate>
+    <SectionTitle
+      sectionLabel={testimonials.sectionLabel}
+      heading={testimonials.heading}
+      subheading={testimonials.subheading}
+    />
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {topTestimonials.map(testimonial => (
+        <TestimonialCard {...testimonial} />
+      ))}
+    </div>
+  </section>
+
+  <!-- CTA Banner Section -->
+  <section class="container mx-auto px-4 md:px-6 mb-24">
+    <CTABanner {...ctaBanner} />
+  </section>
+
+</BaseLayout>

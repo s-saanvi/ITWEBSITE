@@ -1,0 +1,113 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy: #0A0F1E;
+  --color-navy-light: #0F1729;
+  --color-brand: #2563EB;
+  --color-accent: #06B6D4;
+  --font-sans: "Inter", sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+}
+
+/* Base */
+body {
+  background-color: var(--color-navy);
+  color: #f3f4f6; /* gray-100 */
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* 1. Typewriter Cursor */
+.typewriter-cursor {
+  border-right: 2px solid var(--color-brand);
+  animation: blink 0.75s step-end infinite;
+}
+
+@keyframes blink {
+  from, to { border-color: transparent }
+  50% { border-color: var(--color-brand) }
+}
+
+/* 2. Scroll Fade-In */
+[data-animate] {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+[data-animate].visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 4. Navbar Scroll */
+.navbar {
+  background-color: transparent;
+  transition: background-color 0.3s ease, backdrop-filter 0.3s ease;
+}
+
+.navbar.scrolled {
+  background-color: rgba(10, 15, 30, 0.95);
+  backdrop-filter: blur(10px);
+}
+
+/* 5. Hover Glow on Cards */
+.service-card {
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.service-card:hover {
+  box-shadow: 0 0 30px rgba(37, 99, 235, 0.4);
+  transform: translateY(-5px);
+}
+
+/* 6. Hero Background */
+.hero-bg-wrapper {
+  position: absolute;
+  inset: -50px 0 0 0;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.hero-bg {
+  width: 100%;
+  height: calc(100% + 50px);
+  background-size: 50px 50px;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  animation: grid-move 20s linear infinite;
+}
+
+@keyframes grid-move {
+  0% { transform: translateY(-50px); }
+  100% { transform: translateY(0); }
+}
+
+/* 7. Marquee */
+.marquee-container {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.marquee-content {
+  display: inline-block;
+  animation: marquee 30s linear infinite;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* 8. Accordion Transition */
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out;
+}
+
+.accordion-content.open {
+  max-height: 500px;
+}

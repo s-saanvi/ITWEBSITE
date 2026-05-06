@@ -1,0 +1,85 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { aboutConfig } from "../config/about.config";
+import HeroSection from "../components/HeroSection.astro";
+import SectionTitle from "../components/SectionTitle.astro";
+import TimelineItem from "../components/TimelineItem.astro";
+import TeamCard from "../components/TeamCard.astro";
+import CTABanner from "../components/CTABanner.astro";
+
+const { hero, story, values, timeline, team, cta } = aboutConfig;
+---
+<BaseLayout title={hero.heading} description={hero.subheading}>
+
+  <HeroSection
+    headline={hero.heading}
+    subheading={hero.subheading}
+    breadcrumb={hero.breadcrumb}
+    centered={true}
+  />
+
+  <!-- Story Section -->
+  <section class="py-16 container mx-auto px-4 md:px-6" data-animate>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <div>
+        <h2 class="text-3xl font-bold font-display text-white mb-6">{story.heading}</h2>
+        <div class="space-y-4 text-gray-400 leading-relaxed text-lg">
+          {story.paragraphs.map(p => <p>{p}</p>)}
+        </div>
+      </div>
+      <div class="relative">
+        <div class="aspect-w-4 aspect-h-3 bg-gray-800 rounded-2xl overflow-hidden border border-gray-700">
+           <!-- Fallback for story.image -->
+           <div class="w-full h-full min-h-[400px] bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
+             <span class="text-gray-600 font-display text-2xl font-bold">NexCore Office</span>
+           </div>
+        </div>
+        <div class="absolute -bottom-6 -left-6 w-48 h-48 bg-blue-600/20 rounded-full blur-3xl -z-10"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Core Values -->
+  <section class="py-24 bg-[#0F1729] border-y border-gray-800 mt-12" data-animate>
+    <div class="container mx-auto px-4 md:px-6">
+      <SectionTitle heading="Our Core Values" subheading="The principles that guide every decision we make and every system we build." />
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {values.map(value => (
+          <div class="bg-[#0A0F1E] p-8 rounded-xl border border-gray-800 text-center">
+            <div class="text-4xl mb-4">{value.icon}</div>
+            <h3 class="text-xl font-bold text-white mb-3">{value.title}</h3>
+            <p class="text-gray-400 text-sm">{value.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline -->
+  <section class="py-24 container mx-auto px-4 md:px-6">
+    <SectionTitle heading="Our Journey" subheading="A decade of milestones and continuous growth." />
+    <div class="max-w-3xl mx-auto mt-12">
+      {timeline.map((item, index) => (
+        <TimelineItem {...item} isLast={index === timeline.length - 1} />
+      ))}
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section class="py-24 bg-[#0F1729] border-y border-gray-800" data-animate>
+    <div class="container mx-auto px-4 md:px-6">
+      <SectionTitle heading="Meet the Leadership" subheading="The experts steering the ship and ensuring your IT strategy succeeds." />
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {team.map(member => (
+          <TeamCard {...member} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="container mx-auto px-4 md:px-6 py-24">
+    <CTABanner {...cta} />
+  </section>
+
+</BaseLayout>

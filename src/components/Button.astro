@@ -1,0 +1,19 @@
+---
+export interface Props {
+  label: string;
+  href: string;
+  variant?: "primary" | "secondary" | "ghost";
+}
+
+const { label, href, variant = "primary" } = Astro.props;
+
+const baseClasses = "inline-flex items-center justify-center px-6 py-3 rounded-md font-medium transition-colors duration-200";
+const variants = {
+  primary: "bg-blue-600 hover:bg-blue-700 text-white shadow-md",
+  secondary: "bg-gray-800 hover:bg-gray-700 text-white border border-gray-700",
+  ghost: "bg-transparent hover:bg-gray-800 text-blue-400 hover:text-blue-300",
+};
+---
+<a href={href} class={`${baseClasses} ${variants[variant]}`}>
+  {label}
+</a>

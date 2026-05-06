@@ -1,0 +1,84 @@
+---
+import "../styles/global.css";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+import { siteConfig } from "../config/site.config";
+
+export interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+}
+
+const {
+  title,
+  description = siteConfig.description,
+  ogImage = siteConfig.defaultOgImage
+} = Astro.props;
+
+const pageTitle = `${title} | ${siteConfig.name}`;
+const canonicalURL = new URL(Astro.url.pathname, siteConfig.url).href;
+---
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href={siteConfig.favicon} />
+    <link rel="canonical" href={canonicalURL} />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Primary Meta Tags -->
+    <title>{pageTitle}</title>
+    <meta name="title" content={pageTitle} />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content={siteConfig.themeColor} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(ogImage, Astro.site || siteConfig.url).href} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={pageTitle} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={new URL(ogImage, Astro.site || siteConfig.url).href} />
+
+    <!-- Google Fonts: Inter & Space Grotesk -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  </head>
+  <body class="bg-[#0A0F1E] text-gray-100 font-sans antialiased flex flex-col min-h-screen">
+    <Navbar />
+    <main class="flex-grow pt-20"> <!-- pt-20 to account for fixed navbar -->
+      <slot />
+    </main>
+    <Footer />
+
+    <script>
+      // Global intersection observer for scroll animations
+      const setupAnimations = () => {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              // Optional: stop observing once visible if you only want it to happen once
+              // observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        document.querySelectorAll('[data-animate]').forEach((el) => {
+          observer.observe(el);
+        });
+      };
+
+      document.addEventListener('DOMContentLoaded', setupAnimations);
+    </script>
+  </body>
+</html>

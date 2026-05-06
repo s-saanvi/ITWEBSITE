@@ -1,0 +1,52 @@
+---
+export interface Props {
+  items: { question: string; answer: string }[];
+}
+
+const { items } = Astro.props;
+---
+<div class="space-y-4 max-w-3xl mx-auto">
+  {items.map((item, index) => (
+    <div class="border border-gray-800 rounded-lg overflow-hidden bg-[#0F1729]">
+      <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none faq-toggle">
+        <span class="font-medium text-white">{item.question}</span>
+        <svg class="w-5 h-5 text-blue-500 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+      <div class="accordion-content px-6 bg-[#0F1729]">
+        <p class="text-gray-400 pb-4">{item.answer}</p>
+      </div>
+    </div>
+  ))}
+</div>
+
+<script>
+  const setupFAQ = () => {
+    const toggles = document.querySelectorAll('.faq-toggle');
+    toggles.forEach(toggle => {
+      toggle.addEventListener('click', () => {
+        const content = toggle.nextElementSibling as HTMLElement;
+        const icon = toggle.querySelector('svg') as HTMLElement;
+
+        // Close others
+        document.querySelectorAll('.accordion-content').forEach(c => {
+          if (c !== content && c.classList.contains('open')) {
+            c.classList.remove('open');
+            (c.previousElementSibling?.querySelector('svg') as HTMLElement).style.transform = 'rotate(0deg)';
+          }
+        });
+
+        // Toggle current
+        content.classList.toggle('open');
+        if (content.classList.contains('open')) {
+          icon.style.transform = 'rotate(180deg)';
+        } else {
+          icon.style.transform = 'rotate(0deg)';
+        }
+      });
+    });
+  };
+
+  document.addEventListener('DOMContentLoaded', setupFAQ);
+</script>

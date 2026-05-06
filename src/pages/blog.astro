@@ -1,0 +1,25 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { blogConfig } from "../config/blog.config";
+import HeroSection from "../components/HeroSection.astro";
+import BlogCard from "../components/BlogCard.astro";
+
+const { hero, posts } = blogConfig;
+---
+<BaseLayout title={hero.heading} description={hero.subheading}>
+
+  <HeroSection
+    headline={hero.heading}
+    subheading={hero.subheading}
+    centered={true}
+  />
+
+  <section class="container mx-auto px-4 md:px-6 pb-24">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {posts.map(post => (
+        <BlogCard {...post} />
+      ))}
+    </div>
+  </section>
+
+</BaseLayout>

@@ -1,0 +1,129 @@
+---
+import type { CTA } from "../types";
+import Button from "./Button.astro";
+
+export interface Props {
+  badge?: string;
+  headlineStatic?: string;
+  headlineTypewriter?: string[];
+  headline?: string;
+  subheading: string;
+  primaryCTA?: CTA;
+  secondaryCTA?: CTA;
+  breadcrumb?: { label: string; href?: string }[];
+  centered?: boolean;
+}
+
+const { badge, headlineStatic, headlineTypewriter, headline, subheading, primaryCTA, secondaryCTA, breadcrumb, centered = false } = Astro.props;
+---
+<section class={`pt-32 pb-20 md:pt-40 md:pb-28 relative ${centered ? 'text-center' : ''}`} data-animate>
+  <div class="container mx-auto px-4 md:px-6 relative z-10">
+
+    {breadcrumb && (
+      <nav class={`flex items-center space-x-2 text-sm text-gray-400 mb-8 ${centered ? 'justify-center' : ''}`}>
+        {breadcrumb.map((item, index) => (
+          <>
+            {item.href ? (
+              <a href={item.href} class="hover:text-white transition-colors">{item.label}</a>
+            ) : (
+              <span class="text-white">{item.label}</span>
+            )}
+            {index < breadcrumb.length - 1 && <span>/</span>}
+          </>
+        ))}
+      </nav>
+    )}
+
+    <div class={`max-w-4xl ${centered ? 'mx-auto' : ''}`}>
+      {badge && (
+        <div class={`inline-block px-4 py-1.5 rounded-full border border-blue-800 bg-blue-900/30 text-blue-300 text-sm font-medium mb-6 ${centered ? 'mx-auto' : ''}`}>
+          {badge}
+        </div>
+      )}
+
+      <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold font-display text-white tracking-tight mb-6 leading-tight">
+        {headline && <span>{headline}</span>}
+        {headlineStatic && <span>{headlineStatic}</span>}
+        {headlineTypewriter && headlineTypewriter.length > 0 && (
+          <span class="text-blue-500 typewriter-text" data-words={JSON.stringify(headlineTypewriter)}></span>
+        )}
+        {headlineTypewriter && <span class="typewriter-cursor">&nbsp;</span>}
+      </h1>
+
+      <p class="text-xl text-gray-400 mb-10 max-w-2xl leading-relaxed">
+        {subheading}
+      </p>
+
+      {(primaryCTA || secondaryCTA) && (
+        <div class={`flex flex-col sm:flex-row gap-4 ${centered ? 'justify-center' : ''}`}>
+          {primaryCTA && <Button label={primaryCTA.label} href={primaryCTA.href} variant="primary" />}
+          {secondaryCTA && <Button label={secondaryCTA.label} href={secondaryCTA.href} variant="secondary" />}
+        </div>
+      )}
+    </div>
+  </div>
+</section>
+
+{headlineTypewriter && (
+  <script>
+    class TypeWriter {
+      txtElement: HTMLElement;
+      words: string[];
+      txt: string;
+      wordIndex: number;
+      wait: number;
+      isDeleting: boolean;
+
+      constructor(txtElement: HTMLElement, words: string[], wait = 3000) {
+        this.txtElement = txtElement;
+        this.words = words;
+        this.txt = '';
+        this.wordIndex = 0;
+        this.wait = wait;
+        this.isDeleting = false;
+        this.type();
+      }
+
+      type() {
+        const current = this.wordIndex % this.words.length;
+        const fullTxt = this.words[current];
+
+        if (this.isDeleting) {
+          this.txt = fullTxt.substring(0, this.txt.length - 1);
+        } else {
+          this.txt = fullTxt.substring(0, this.txt.length + 1);
+        }
+
+        this.txtElement.innerHTML = `${this.txt}`;
+
+        let typeSpeed = 100;
+
+        if (this.isDeleting) {
+          typeSpeed /= 2;
+        }
+
+        if (!this.isDeleting && this.txt === fullTxt) {
+          typeSpeed = this.wait;
+          this.isDeleting = true;
+        } else if (this.isDeleting && this.txt === '') {
+          this.isDeleting = false;
+          this.wordIndex++;
+          typeSpeed = 500;
+        }
+
+        setTimeout(() => this.type(), typeSpeed);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+
+    function init() {
+      const txtElement = document.querySelector('.typewriter-text') as HTMLElement;
+      if (txtElement) {
+        const words = JSON.parse(txtElement.getAttribute('data-words') || '[]');
+        const wait = 2000;
+        new TypeWriter(txtElement, words, wait);
+      }
+    }
+  </script>
+)}

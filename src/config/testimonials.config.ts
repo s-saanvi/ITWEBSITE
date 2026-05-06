@@ -1,0 +1,77 @@
+import type { TestimonialsConfig } from "../types";
+
+export const testimonialsConfig: TestimonialsConfig = {
+  hero: {
+    heading: "What Our Clients Say",
+    subheading: "Real feedback from businesses we've helped scale securely.",
+  },
+  stats: [
+    { value: "4.9/5", label: "Average Rating" },
+    { value: "500+", label: "Total Reviews" },
+    { value: "97%", label: "Client Retention" },
+    { value: "NPS 72", label: "Net Promoter Score" },
+  ],
+  categories: ["All", "IT Support", "Cloud", "Cybersecurity", "Consulting", "Network"],
+  items: [
+    {
+      id: 1,
+      name: "Sarah Thompson",
+      role: "CTO",
+      company: "Brightwave Analytics",
+      avatar: "/images/testimonials/sarah.jpg",
+      rating: 5,
+      quote: "NexCore completely transformed our IT infrastructure. Response times went from hours to minutes, and our team has never been happier.",
+      category: "IT Support",
+    },
+    {
+      id: 2,
+      name: "David Chen",
+      role: "CEO",
+      company: "LogisticsPlus",
+      avatar: "/images/testimonials/david.jpg",
+      rating: 5,
+      quote: "Moving to AWS seemed daunting until NexCore stepped in. The migration was flawless with absolutely zero unplanned downtime.",
+      category: "Cloud",
+    },
+    {
+      id: 3,
+      name: "Elena Rodriguez",
+      role: "Operations Manager",
+      company: "HealthFirst Clinics",
+      avatar: "/images/testimonials/elena.jpg",
+      rating: 5,
+      quote: "As a healthcare provider, security is paramount. NexCore's cybersecurity overhaul ensured we passed our HIPAA audit with flying colors.",
+      category: "Cybersecurity",
+    },
+    {
+      id: 4,
+      name: "James Wilson",
+      role: "Founder",
+      company: "Wilson & Co Legal",
+      avatar: "/images/testimonials/james.jpg",
+      rating: 4,
+      quote: "Their strategic consulting helped us align our tech spend with our business goals. We saved 20% on licensing alone in the first year.",
+      category: "Consulting",
+    },
+    {
+      id: 5,
+      name: "Anita Patel",
+      role: "VP Engineering",
+      company: "FinStream",
+      avatar: "/images/testimonials/anita.jpg",
+      rating: 5,
+      quote: "The network stability we now have is incredible. Since NexCore re-architected our office networks, dropped calls are a thing of the past.",
+      category: "Network",
+    },
+    {
+      id: 6,
+      name: "Michael Chang",
+      role: "Director of IT",
+      company: "EduTech Global",
+      avatar: "/images/testimonials/michael.jpg",
+      rating: 5,
+      quote: "The 24/7 helpdesk support is genuinely game-changing. Our global teams finally have the support they need regardless of time zones.",
+      category: "IT Support",
+    }
+  ],
+};

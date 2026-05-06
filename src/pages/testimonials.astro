@@ -1,0 +1,52 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { testimonialsConfig } from "../config/testimonials.config";
+import HeroSection from "../components/HeroSection.astro";
+import TestimonialCard from "../components/TestimonialCard.astro";
+import StatsCounter from "../components/StatsCounter.astro";
+
+const { hero, stats, categories, items } = testimonialsConfig;
+
+// Convert stats format to match the StatsCounter component expectation
+const mappedStats = stats.map(s => {
+  // Simple heuristic to split out numbers and suffixes if possible, or just pass as label
+  const match = s.value.match(/^([\d.]+)(.*)$/);
+  return {
+    value: match ? parseFloat(match[1]) : 0,
+    suffix: match ? match[2] : s.value,
+    label: s.label
+  };
+});
+---
+<BaseLayout title={hero.heading} description={hero.subheading}>
+
+  <HeroSection
+    headline={hero.heading}
+    subheading={hero.subheading}
+    centered={true}
+  />
+
+  <section class="container mx-auto px-4 md:px-6 mb-16">
+    <StatsCounter stats={mappedStats} />
+  </section>
+
+  <!-- Filter Buttons (Visual only, full filtering would require client-side JS/framework) -->
+  <section class="container mx-auto px-4 md:px-6 mb-12 flex flex-wrap justify-center gap-4" data-animate>
+    {categories.map((cat, i) => (
+      <button class={`px-6 py-2 rounded-full text-sm font-medium transition-colors ${i === 0 ? 'bg-blue-600 text-white' : 'bg-gray-800 text-gray-300 hover:bg-gray-700'}`}>
+        {cat}
+      </button>
+    ))}
+  </section>
+
+  <section class="container mx-auto px-4 md:px-6 pb-24">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {items.map(testimonial => (
+        <div data-animate>
+          <TestimonialCard {...testimonial} />
+        </div>
+      ))}
+    </div>
+  </section>
+
+</BaseLayout>

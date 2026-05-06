@@ -1,0 +1,52 @@
+---
+export interface Props {
+  stats: { value: number; suffix: string; label: string }[];
+}
+
+const { stats } = Astro.props;
+---
+<div class="grid grid-cols-2 md:grid-cols-4 gap-8 py-12 border-y border-gray-800">
+  {stats.map((stat, i) => (
+    <div class="text-center" data-animate>
+      <div class="text-4xl md:text-5xl font-bold font-display text-white mb-2 flex justify-center items-baseline">
+        <span class="counter-value" data-target={stat.value}>0</span>
+        <span class="text-blue-500">{stat.suffix}</span>
+      </div>
+      <p class="text-gray-400 font-medium">{stat.label}</p>
+    </div>
+  ))}
+</div>
+
+<script>
+  const animateStats = () => {
+    const counters = document.querySelectorAll('.counter-value');
+    const speed = 200;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const counter = entry.target as HTMLElement;
+          const target = +counter.getAttribute('data-target')!;
+          const increment = target / speed;
+
+          const updateCount = () => {
+            const current = +counter.innerText;
+            if (current < target) {
+              counter.innerText = Math.ceil(current + increment).toString();
+              setTimeout(updateCount, 10);
+            } else {
+              counter.innerText = target.toString();
+            }
+          };
+
+          updateCount();
+          observer.unobserve(counter);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    counters.forEach(counter => observer.observe(counter));
+  };
+
+  document.addEventListener('DOMContentLoaded', animateStats);
+</script>

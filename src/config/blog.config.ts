@@ -1,0 +1,70 @@
+import type { BlogConfig } from "../types";
+
+export const blogConfig: BlogConfig = {
+  hero: {
+    heading: "IT Insights & Guides",
+    subheading: "Expert takes on cybersecurity, cloud, and IT strategy.",
+  },
+  posts: [
+    {
+      slug: "zero-trust-security-2025",
+      title: "Why Zero Trust Security Is Non-Negotiable in 2025",
+      excerpt: "Traditional perimeter-based security is dead. Here's what replaces it and why your business needs it now.",
+      category: "Cybersecurity",
+      date: "2025-01-10",
+      readTime: "6 min read",
+      image: "/images/blog/zero-trust.jpg",
+      author: "Jordan Wu",
+    },
+    {
+      slug: "aws-cost-optimization",
+      title: "5 Strategies to Slash Your AWS Bill by 30%",
+      excerpt: "Cloud costs spiraling out of control? Implement these proven optimization strategies to reign in your infrastructure spend.",
+      category: "Cloud",
+      date: "2024-12-05",
+      readTime: "8 min read",
+      image: "/images/blog/cloud-costs.jpg",
+      author: "Sam Okafor",
+    },
+    {
+      slug: "remote-work-it-helpdesk",
+      title: "Scaling IT Support for a Distributed Workforce",
+      excerpt: "How to manage devices, security, and support tickets when your team is spread across 5 time zones.",
+      category: "IT Support",
+      date: "2024-11-20",
+      readTime: "5 min read",
+      image: "/images/blog/remote-support.jpg",
+      author: "Lily Chen",
+    },
+    {
+      slug: "disaster-recovery-plan",
+      title: "Building a Bulletproof Disaster Recovery Plan",
+      excerpt: "It's not if a disaster happens, but when. Here is the framework we use to guarantee rapid data recovery.",
+      category: "Data",
+      date: "2024-10-15",
+      readTime: "7 min read",
+      image: "/images/blog/disaster-recovery.jpg",
+      author: "Priya Nair",
+    },
+    {
+      slug: "digital-transformation-roi",
+      title: "Measuring the ROI of Digital Transformation",
+      excerpt: "Stop guessing. Here are the concrete metrics executives should track when investing in new technology.",
+      category: "Consulting",
+      date: "2024-09-28",
+      readTime: "9 min read",
+      image: "/images/blog/roi.jpg",
+      author: "Alex Rivera",
+    },
+    {
+      slug: "sd-wan-vs-mpls",
+      title: "SD-WAN vs MPLS: Which is Right for Your Business?",
+      excerpt: "A technical breakdown of modern networking architectures and how to choose the right foundation.",
+      category: "Network",
+      date: "2024-09-10",
+      readTime: "6 min read",
+      image: "/images/blog/network.jpg",
+      author: "Marcus Bell",
+    }
+  ],
+};

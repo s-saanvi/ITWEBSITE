@@ -1,0 +1,33 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { servicesConfig } from "../config/services.config";
+import HeroSection from "../components/HeroSection.astro";
+import ServiceCard from "../components/ServiceCard.astro";
+import CTABanner from "../components/CTABanner.astro";
+
+const { hero, items, cta } = servicesConfig;
+---
+<BaseLayout title={hero.heading} description={hero.subheading}>
+
+  <HeroSection
+    headline={hero.heading}
+    subheading={hero.subheading}
+    breadcrumb={hero.breadcrumb}
+    centered={true}
+  />
+
+  <section class="py-12 container mx-auto px-4 md:px-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24">
+      {items.map((service) => (
+        <div id={service.id} class="scroll-mt-32" data-animate>
+          <ServiceCard {...service} href={`/services#${service.id}`} />
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="container mx-auto px-4 md:px-6 mb-24">
+    <CTABanner {...cta} />
+  </section>
+
+</BaseLayout>

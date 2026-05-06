@@ -1,0 +1,70 @@
+import type { ServicesConfig } from "../types";
+
+export const servicesConfig: ServicesConfig = {
+  hero: {
+    heading: "Our IT Services",
+    subheading: "Scalable solutions built for the way modern businesses operate.",
+    breadcrumb: [{ label: "Home", href: "/" }, { label: "Services" }],
+  },
+  items: [
+    {
+      id: "it-support",
+      icon: "headset",
+      title: "IT Support & Helpdesk",
+      shortDescription: "24/7 technical support for your entire organization.",
+      fullDescription: "Our helpdesk team resolves 95% of tickets on first contact, minimizing downtime and keeping your team productive.",
+      features: ["24/7 availability", "Remote & on-site support", "Ticket tracking portal"],
+      category: "Support",
+    },
+    {
+      id: "network",
+      icon: "network",
+      title: "Network Setup & Management",
+      shortDescription: "Robust, secure, and lightning-fast network infrastructure.",
+      fullDescription: "We design, deploy, and manage enterprise-grade networks that ensure seamless communication and data flow.",
+      features: ["LAN/WAN setup", "VPN configuration", "Proactive network monitoring"],
+      category: "Infrastructure",
+    },
+    {
+      id: "cybersecurity",
+      icon: "shield",
+      title: "Cybersecurity Solutions",
+      shortDescription: "Protect your business from modern cyber threats.",
+      fullDescription: "Comprehensive security strategies including endpoint protection, firewall management, and employee training.",
+      features: ["Advanced threat detection", "Next-gen firewall management", "Compliance audits"],
+      category: "Security",
+    },
+    {
+      id: "cloud",
+      icon: "cloud",
+      title: "Cloud Services & Migration",
+      shortDescription: "Move to the cloud seamlessly with zero downtime.",
+      fullDescription: "We help you migrate, optimize, and manage your cloud environments across AWS, Azure, and Google Cloud.",
+      features: ["Multi-cloud strategy", "Seamless migration planning", "Monthly cost optimization"],
+      category: "Cloud",
+    },
+    {
+      id: "backup",
+      icon: "database",
+      title: "Data Backup & Recovery",
+      shortDescription: "Your data is safe with automated backups and fast recovery.",
+      fullDescription: "Protect your critical business data against ransomware and hardware failures with robust disaster recovery plans.",
+      features: ["Automated daily backups", "Rapid disaster recovery", "Military-grade data encryption"],
+      category: "Data",
+    },
+    {
+      id: "consulting",
+      icon: "chart",
+      title: "IT Consulting & Strategy",
+      shortDescription: "Strategic IT roadmaps aligned to your business goals.",
+      fullDescription: "Align your technology investments with your business objectives through our virtual CIO/CTO services.",
+      features: ["Comprehensive technology audits", "Digital transformation roadmaps", "Strategic vendor management"],
+      category: "Consulting",
+    },
+  ],
+  cta: {
+    heading: "Not Sure Which Service You Need?",
+    subheading: "Our consultants will assess your needs and recommend the right solution tailored to your business.",
+    cta: { label: "Talk to an Expert", href: "/contact" },
+  },
+};
